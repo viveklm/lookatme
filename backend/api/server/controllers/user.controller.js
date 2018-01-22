@@ -29,9 +29,10 @@ function get(req, res) {
  */
 function create(req, res, next) {
   const user = new User({
+    name: req.body.name,
     username: req.body.username,
-    mobileNumber: req.body.mobileNumber,
-    password: req.body.password
+    password: req.body.password,
+    location: req.body.location
   });
 
   bcrypt.genSalt(10, (err, salt) => {
@@ -52,9 +53,10 @@ function create(req, res, next) {
  */
 function update(req, res, next) {
   const user = req.user;
+  user.name = req.body.name;
   user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
   user.password = req.body.password;
+  user.location = req.body.location;
 
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(user.password, salt, (error, hash) => {
